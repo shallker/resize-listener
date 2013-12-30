@@ -1,0 +1,50 @@
+extends layout/default
+
+block styles
+
+append content
+  #test
+
+append scripts
+  script
+    var test = require('simple-test');
+    var Promisy = require('promisy');
+    var ResizeListener = require('resize-listener');
+
+    var elTest = document.getElementById('test');
+    var resizeListener = new ResizeListener(elTest);
+    var promisy = new Promisy;
+
+    promisy(function (next) {
+      test('resize listener -> style.width', function (done) {
+        resizeListener.on('resize', onResize);
+
+        function onResize() {
+          resizeListener.off('resize', onResize);
+          done();
+          next();
+        }
+
+        setTimeout(function () {
+          elTest.style.width = '10px';
+        }, 300);
+      });
+    }).then(function (next) {
+      test('resize listener -> appendChild', function (done) {
+        resizeListener.on('resize', onResize);
+
+        function onResize() {
+          done();
+          resizeListener.off('resize', onResize);
+        }
+
+        var div = document.createElement('div');
+
+        div.style.width = '20px';
+        div.style.height = '20px';
+
+        setTimeout(function () {
+          elTest.appendChild(div);
+        }, 200);
+      });
+    });

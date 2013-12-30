@@ -1,0 +1,20 @@
+{
+  "name": "resize-listener",
+  "repo": "shallker/resize-listener",
+  "description": "Resize listener",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "shallker-wang/eventy": "*"
+  },
+  "development": {
+    "shallker/simple-test": "*",
+    "shallker/promisy": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js",
+    "lib/resize-listener.js"
+  ]
+}
